@@ -10,6 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.UUID;
+
 @Service
 public class TodoService {
 
@@ -23,8 +26,29 @@ public class TodoService {
         todo.setConcluido(Status.PENDENTE);
         Todo todoNovo = todoRepository.save(todo);
 
-        return new  TodoResponseDTO(todoNovo.getTitulo(), todoNovo.getDescricao(), todoNovo.getConcluido());
+        return converterParaDTO(todo);
     }
 
-    
+    public TodoResponseDTO buscarPorId(UUID ID){
+
+        Todo todonovo = todoRepository.findById(ID).orElseThrow();
+
+        return converterParaDTO(todonovo);
+    }
+    public List<TodoResponseDTO> retornarLista(){
+        return  todoRepository.findAll().
+                stream().map(this::converterParaDTO).toList();
+    }
+
+    private TodoResponseDTO converterParaDTO(Todo todo) {
+
+        return new TodoResponseDTO(
+                todo.getId(),
+                todo.getTitulo(),
+                todo.getDescricao(),
+                todo.getConcluido(),
+                todo.getDataCriacao(),
+                todo.getDataConclusao()
+        );
+    }
 }

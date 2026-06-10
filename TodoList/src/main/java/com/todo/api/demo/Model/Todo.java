@@ -14,7 +14,7 @@ public class Todo {
     @Id
     @Column(name = "Id")
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID Id;
+    private UUID id;
 
     @Column(name = "titulo", nullable = false, length = 50)
     private String titulo;
@@ -29,5 +29,5 @@ public class Todo {
     private LocalTime dataCriacao;
 
     @Column(name = "dataConclusão")
-    private LocalTime dataConclusão;
+    private LocalTime dataConclusao;
 }
