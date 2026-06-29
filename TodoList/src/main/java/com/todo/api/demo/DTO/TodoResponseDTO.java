@@ -1,6 +1,7 @@
 package com.todo.api.demo.DTO;
 
 import com.todo.api.demo.Model.Status;
+import com.todo.api.demo.Model.Todo;
 
 
 import java.time.LocalTime;
@@ -14,4 +15,14 @@ public record TodoResponseDTO (
         LocalTime dataCriacao,
         LocalTime dataConclusao
     ){
+    public TodoResponseDTO(Todo todo) {
+        this(
+                todo.getId(),
+                todo.getTitulo(),
+                todo.getDescricao(),
+                todo.getConcluido(),
+                todo.getDataCriacao(),
+                todo.getDataConclusao()
+        );
+    }
 }
